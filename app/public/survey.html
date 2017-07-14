@@ -1,61 +1,154 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<title>Friend Finder</title>
-	<!-- Latest compiled and minified CSS & JS -->
+    <meta charset="utf-8">
+    <title>Friend Finder</title>
+    <!-- Latest compiled and minified CSS & JS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-	
-	<div class="container">
-
-		<div class="row">
-
-			<div class="col-lg-12">
-
-			<div id="aboutYou">
-				<h2>Survey Questions</h2>
-				<hr>
-				<h3><strong>About You</strong></h3>
-				<form method="POST" role="form">
-
-	              <div class="form-group">
-	                <label for="name"><h4>Name (Required)</h4></label>
-	                <input type="text" class="form-control" id="name" required>
-	              </div>
-
-	              <div class="form-group">
-	                <label for="image"><h4>Link a Photo Image (Required)</h4></label>
-	                <input type="text" class="form-control" id="photo" required>
-	              </div>
-
-				</form>
-				<hr>
-			</div>
-			
-			<div id="questions">
-				
-			</div>
-
-			<div class="text-center">
-              <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="glyphicon glyphicon-ok-sign"></span> Submit</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="aboutYou">
+                    <h2>Survey Questions</h2>
+                    <hr>
+                    <h3><strong>About You</strong></h3>
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="name">
+                                <h4>Name (Required)</h4></label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">
+                                <h4>Link a Photo Image (Required)</h4></label>
+                            <input type="text" class="form-control" id="photo" required>
+                        </div>
+                    </form>
+                    <hr>
+                </div>
+                <div id="questions">
+                    <h3><strong>Question 1</strong></h3>
+                    <h4>Nutella is a must have in your pantry.</h4>
+                    <select data-placeholder class="chosen-select" id="q1">
+                        <option value></option>
+                        <option value="1">1 (strongly disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (strongly agree)</option>
+                    </select>
+                    <h3><strong>Question 2</strong></h3>
+                    <h4>Cats over dogs.</h4>
+                    <select data-placeholder class="chosen-select" id="q2">
+                        <option value></option>
+                        <option value="1">1 (strongly disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (strongly agree)</option>
+                    </select>
+                    <h3><strong>Question 3</strong></h3>
+                    <h4>Adulting is hard.</h4>
+                    <select data-placeholder class="chosen-select" id="q3">
+                        <option value></option>
+                        <option value="1">1 (strongly disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (strongly agree)</option>
+                    </select>
+                    <h3><strong>Question 4</strong></h3>
+                    <h4>question here........</h4>
+                    <select data-placeholder class="chosen-select" id="q4">
+                        <option value></option>
+                        <option value="1">1 (strongly disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (strongly agree)</option>
+                    </select>
+                    <h3><strong>Question 5</strong></h3>
+                    <h4>question here........</h4>
+                    <select data-placeholder class="chosen-select" id="q5">
+                        <option value></option>
+                        <option value="1">1 (strongly disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (strongly agree)</option>
+                    </select>
+                    <h3><strong>Question 6</strong></h3>
+                    <h4>question here........</h4>
+                    <select data-placeholder class="chosen-select" id="q6">
+                        <option value></option>
+                        <option value="1">1 (strongly disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (strongly agree)</option>
+                    </select>
+                    <h3><strong>Question 7</strong></h3>
+                    <h4>question here........</h4>
+                    <select data-placeholder class="chosen-select" id="q7">
+                        <option value></option>
+                        <option value="1">1 (strongly disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (strongly agree)</option>
+                    </select>
+                    <h3><strong>Question 8</strong></h3>
+                    <h4>question here........</h4>
+                    <select data-placeholder class="chosen-select" id="q8">
+                        <option value></option>
+                        <option value="1">1 (strongly disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (strongly agree)</option>
+                    </select>
+                    <h3><strong>Question 9</strong></h3>
+                    <h4>question here........</h4>
+                    <select data-placeholder class="chosen-select" id="q9">
+                        <option value></option>
+                        <option value="1">1 (strongly disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (strongly agree)</option>
+                    </select>
+                    <h3><strong>Question 10</strong></h3>
+                    <h4>question here........</h4>
+                    <select data-placeholder class="chosen-select" id="q10">
+                        <option value></option>
+                        <option value="1">1 (strongly disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (strongly agree)</option>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="glyphicon glyphicon-ok-sign"></span> Submit</button>
+                </div>
             </div>
-
-	        </div>
-
         </div>
-
-	<div class="footer">
-        <p>
-            <a href="/api">API Friends List</a> |
-            <a href="https://github.com/raquelclare/friend-finder" target="_blank">GitHub Repo</a>
-        </p>
+        <div class="footer">
+            <p>
+                <a href="/api">API Friends List</a> |
+                <a href="https://github.com/raquelclare/friend-finder" target="_blank">GitHub Repo</a>
+            </p>
+        </div>
     </div>
-
-	</div>
-
+    <script type="text/javascript">
+    // JS goes here
+    </script>
 </body>
+
 </html>
