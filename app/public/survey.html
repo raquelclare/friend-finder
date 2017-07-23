@@ -84,7 +84,7 @@
                         <option value="5">5 (strongly agree)</option>
                     </select>
                     <h3><strong>Question 6</strong></h3>
-                    <h4>question here........</h4>
+                    <h4>You prefer to study at a coffee shop versus at home.</h4>
                     <select data-placeholder class="chosen-select" id="q6">
                         <option value></option>
                         <option value="1">1 (strongly disagree)</option>
@@ -94,7 +94,7 @@
                         <option value="5">5 (strongly agree)</option>
                     </select>
                     <h3><strong>Question 7</strong></h3>
-                    <h4>question here........</h4>
+                    <h4>You love texmex food.</h4>
                     <select data-placeholder class="chosen-select" id="q7">
                         <option value></option>
                         <option value="1">1 (strongly disagree)</option>
@@ -104,7 +104,7 @@
                         <option value="5">5 (strongly agree)</option>
                     </select>
                     <h3><strong>Question 8</strong></h3>
-                    <h4>question here........</h4>
+                    <h4>Sports is something you enjoy, whether playing or watching.</h4>
                     <select data-placeholder class="chosen-select" id="q8">
                         <option value></option>
                         <option value="1">1 (strongly disagree)</option>
@@ -135,7 +135,7 @@
                     </select>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="glyphicon glyphicon-ok-sign"></span> Submit</button>
+                    <button type="submit" class="btn btn-primary btn-md" id="submit"><span class="glyphicon glyphicon-ok-sign"></span> Submit</button>
                 </div>
             </div>
         </div>
@@ -146,8 +146,83 @@
             </p>
         </div>
     </div>
+    <!-- Modal goes here -->
+    <!-- Needs to be a modal pop-up that will show their user their 'best match' upon completion of the survey, triggered by the submit button. A modal is a dialog box/popup window that is displayed on top of the current page -->
+    <!-- Modal -->
+    <div id="results-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Its a match!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Your best friend is...</p>
+                    <h2 id="matchName"></h2>
+                    <img id="matchPhoto" src="http://via.placeholder.com/200x200" alt>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
     // JS goes here
+
+    // Capture all form inputs
+    $("#submit").on("click", function() {
+
+        // Form validation to ensure everything was filled out
+        function validate() {
+            var isValid = true;
+            // Checking the first part of the survey-- name and photo
+            $(".form-control").each(function() {
+                // If the value of 'this' input field is empty
+                if ($(this).val() === "")
+                    isValid = false;
+            });
+
+            // Checking the second part of the survey-- that very question was answered
+            $(".chosen-select").each(function() {
+                // If the value of 'this' answer option does not exist
+                if ($(this).val() === "")
+                    isValid = false;
+            })
+            return isValid;
+        } // End of validate functoin
+
+        // If there are values for every input field && function returns true...
+        if (validate() === true) {
+
+            // ...we must create an object for the new user
+            var userData = {
+                name: $("#name").val(),
+                photo: $("#photo").val(),
+                scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val()]
+            }
+
+            // Grab the URL of the website...
+            var currentURL = window.location.origin;
+
+            // ... then create an AJAX post request to send the data to the friends API
+            $.post(currentURL + "/api/friends", userData, function(data) {
+
+                // Grab the result from the AJAX post so that the best match is displayed
+                $("#matchName").text(data.name);
+                $("#matchPhoto").attr("src", data.photo);
+
+                // Trigger the modal
+                $("#results-modal").modal("toggle");
+            });
+            // Else the form is not completed, alert the user to finish the survey
+        } else {
+            alert("Please fill out all fields before submitting!");
+        }
+
+        return false; // why??
+    });
     </script>
 </body>
 
