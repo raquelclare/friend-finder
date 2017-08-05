@@ -1,3 +1,4 @@
+// Linking our routes to a series of data sources
 // We need to be able to grab data from friends.js
 var friendData = require("../data/friends.js");
 
@@ -5,68 +6,54 @@ var friendData = require("../data/friends.js");
 // We need to be able to export all of this code since the files are now separated out
 module.exports = function(app) {
     // Route getting info for all friends - provides JSON
+    // API GET Request
+    // Code handles when users visit a page
     app.get("/api/friends", function(req, res) {
         res.json(friendData);
     });
 
+    // API POST Request
     // Create new survey/friend for app - takes in JSON input
     app.post("/api/friends", function(req, res) {
 
-        // Holding each of the incoming answers chosen from the survey
-        var answer = req.body;
-
-        // Variable holding all of the answers and creating one new friend object
-        var newFriend = {
-            name: answer.name,
-            photo: answer.photo,
-            scores: [ // Using parseInt to get integers right away--- looping would have been an alternative
-                parseInt(answer.score[0]),
-                parseInt(answer.score[1]),
-                parseInt(answer.score[2]),
-                parseInt(answer.score[3]),
-                parseInt(answer.score[4]),
-                parseInt(answer.score[5]),
-                parseInt(answer.score[6]),
-                parseInt(answer.score[7]),
-                parseInt(answer.score[8]),
-                parseInt(answer.score[9])
-            ]
+        // "Best match" for pop up modal
+        var match = {
+            name: "",
+            photo: "",
+            friendDifference: 1000
         };
 
+        // Holding each of the incoming answers chosen from the survey
+        var userData = req.body;
+        var userScores = userData.scores;
+
         // Variables for compatability
-        var scoreDifference = 0;
+        // Calculating difference between the user's scores and scores of each user in the database
         var totalDifference = 0;
-        var minDifference = 0;
-        var match = "";
 
         // Starting the comparison here- looping through existing friendData = friends array
-        for(i = 0; i < friendData.length; i++) {
+        for (i = 0; i < friendData.length; i++) {
 
-	        // Looping though the scores array within the friend object
-	        for (j = 0; j < friendData.scores.length; j++) {
+            console.log(friendData[i].name);
+            totalDifference = 0;
 
-	        	// Getting the absolut value of the difference of scores at that index
-	            scoreDifference = Math.abs(newFriend.scores[j] - friendData[i].scores[j]);
-	            // Getting a total difference, basically the sum of the differences
-	            totalDifference += scoreDifference;
-	            // Automatically setting the first total difference we get to minDifference
-	            minDifference = totalDifference;
-	        }
+            // Looping though the scores array within the friend object
+            for (j = 0; j < friendData[i].scores[j]; j++) {
 
-	        // If a new totalDifference found is less than our established minDifference...
-	        if (totalDifference < minDifference) {
-	        	// ...then update the new minDifference.
-	        	minDifference = totalDifference;
+                totalDifference += Math.abs(parseInt(userScores[j]) - parseInt(friendData[i].scores[j]));
 
-	        	// Friend match is equal to the index in friendData
-	        	match = friendData[i];
-	        }
+                if (totalDifference <= match.friendDifference) {
+                    match.name = friendData[i].name;
+                    match.photo = friendData[i].photo;
+                    match.friendDifference = totalDifference;
+                }
+            }
 
-	        // Adding newFriend object into the friends array
-	        console.log(newFriend);
-	        friendData.push(newFriend);
-	        res.json(friendData);
+        }
 
-	    }    	
-	});  	
-};
+        // Adding newFriend object into the friends array
+        friendData.push(userData);
+        res.json(match);
+
+    });
+}

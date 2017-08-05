@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- Font Awesome Glypicons -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <!-- Chosen -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
 </head>
 
 <body>
@@ -171,6 +176,27 @@
     <script type="text/javascript">
     // JS goes here
 
+    // Chosen CSS
+    var config = {
+        ".chosen-select": {},
+        ".chosen-select-deselect": {
+            allow_single_deselect: true
+        },
+        ".chosen-select-no-single": {
+            disable_search_threshold: 10
+        },
+        ".chosen-select-no-results": {
+            no_results_text: "Oops, nothing found!"
+        },
+        ".chosen-select-width": {
+            width: "95%"
+        }
+    };
+
+    for (var selector in config) {
+      $(selector).chosen(config[selector]);
+    }
+
     // Capture all form inputs
     $("#submit").on("click", function() {
 
@@ -189,12 +215,12 @@
                 // If the value of 'this' answer option does not exist
                 if ($(this).val() === "")
                     isValid = false;
-            })
+            });
             return isValid;
         } // End of validate functoin
 
         // If there are values for every input field && function returns true...
-        if (validate() === true) {
+        if (validate()) {
 
             // ...we must create an object for the new user
             var userData = {
@@ -203,11 +229,8 @@
                 scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val()]
             }
 
-            // Grab the URL of the website...
-            var currentURL = window.location.origin;
-
             // ... then create an AJAX post request to send the data to the friends API
-            $.post(currentURL + "/api/friends", userData, function(data) {
+            $.post("/api/friends", userData, function(data) {
 
                 // Grab the result from the AJAX post so that the best match is displayed
                 $("#matchName").text(data.name);
@@ -221,7 +244,6 @@
             alert("Please fill out all fields before submitting!");
         }
 
-        return false; // why??
     });
     </script>
 </body>
